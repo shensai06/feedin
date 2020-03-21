@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    var isValid = function (s) {
+      // 本质就是一个小型的消消乐游戏  利用临时变量进行配对消除
+      let stack = []
+      for (let i = 0; i < s.length; i++) {
+        switch (s[i]) {
+          case '(':
+          case '[':
+          case '{':
+            stack.push(s[i]);
+            break;
+          case ')':
+            if (stack.length == 0) {
+              return false;
+            }
+            if (stack.pop() != '(') {
+              return false;
+            }
+            break;
+          case ']':
+            if (stack.length == 0) {
+              return false;
+            }
+            if (stack.pop() != '[') {
+              return false;
+            }
+            break;
+          case '}':
+            if (stack.length == 0) {
+              return false;
+            }
+            if (stack.pop() != '{') {
+              return false;
+            }
+            break;
+          default:
+            return false
+            break;
+
+        }
+      }
+      if (!stack.length == 0) {
+        return false;
+      }
+      return true
+    }
+
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h3>第四题<a href="https://leetcode-cn.com/problems/median-of-two-sorted-arrays/">4. 寻找两个有序数组的中位数</a>
+    </h3>
+
+
+    <script>
+        // 第四题  第二种属于真正的标准答案，但是虽然很简单 但是真没怎么看懂
+        var findMedianSortedArrays = function (nums1, nums2) {
+            let arr = nums1.concat(nums2)
+            arr.sort((a, b) => {
+                return a - b
+            })
+
+            if (arr.length % 2 == 0) {
+                return ((arr[arr.length / 2] + arr[arr.length / 2 - 1]) / 2).toFixed(1)
+            } else {
+
+                return (arr[arr.length / 2 - 0.5]).toFixed(1)
+
+            }
+        };
+
+        var find2 = function (nums1, nums2) {
+            let nums1Len = nums1.length;
+            let nums2Len = nums2.length;
+            let nums = [];
+            let i = 0, j = 0, k = 0;
+            //As two arrays are sorted, get them into nums one by one
+            while (i < nums1Len && j < nums2Len) {
+                if (nums1[i] < nums2[j]) {
+                    nums[k] = nums1[i];
+                    i++;
+                }
+                else {
+                    nums[k] = nums2[j];
+                    j++;
+                }
+                k++;
+            }
+            console.log(nums, nums2)
+            // Get remaining numbers
+            while (i < nums1.length) {
+                nums[k] = nums1[i];
+                i++;
+                k++;
+            }
+            while (j < nums2.length) {
+                nums[k] = nums2[j];
+                j++;
+                k++;
+            }
+            //Calculate median
+            const halfLen = Math.ceil(nums.length / 2);
+            if (nums.length % 2 === 0) {
+                return (nums[halfLen - 1] + nums[halfLen]) / 2;
+            }
+            else {
+                return nums[halfLen - 1];
+            }
+        };
+        var find3 = function (nums1, nums2) {
+            let nums1Len = nums1.length;
+            let nums2Len = nums2.length;
+            let nums = [];
+            let i = 0, j = 0, k = 0;
+            // 1、有序数组以较小的数组为基准分别拿出一个数对比 按照小-大  存入新数组
+            while (i < nums1Len && j < nums2Len) {
+                if (nums1[i] < nums2[j]) {
+                    nums[k] = nums1[i]
+                    i++
+                } else {
+                    nums[k] = nums2[j]
+                    j++
+                }
+                k++
+            }
+            // 2、把两个数组剩下数据分别假如nums
+            while (i < nums1Len) {
+                nums[k] = nums1[i];
+                i++;
+                k++;
+            }
+            while (j < nums2Len) {
+                nums[k] = nums2[j];
+                j++;
+                k++;
+            }
+            return nums
+            const halfLen = Math.ceil(nums.length / 2);
+            if (nums.length % 2 === 0) {
+                return (nums[halfLen - 1] + nums[halfLen]) / 2;
+            }
+            else {
+                return nums[halfLen - 1];
+            }
+        }
+
+    </script>
+</body>
+
+</html>

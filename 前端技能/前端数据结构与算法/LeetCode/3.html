@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h3>第三题<a href="https://leetcode-cn.com/problems/two-sum/">1、两数之和</a>
+    </h3>
+
+
+    <script>
+        // 第三题 pwwkew
+        var lengthOfLongestSubstring = function (s) {
+            // n 用来记录最长  
+            let n = s.length ? 1 : 0;
+            let s_ = '';
+            for (let i = 0; i < s.length; i++) {
+                for (let j = 0; j < s_.length; j++) {
+                    if (s_[j] == s[i]) {
+                        s_ = s_.substring(j + 1);
+                        break;
+                    }
+                }
+                s_ += s[i];
+                n = n > s_.length ? n : s_.length;
+            }
+            return n;
+        };
+    </script>
+</body>
+
+</html>

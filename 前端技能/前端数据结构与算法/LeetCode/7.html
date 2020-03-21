@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h3>第七题<a href="https://leetcode-cn.com/problems/reverse-integer/">7. 整数反转
+        </a>
+    </h3>
+
+
+    <script>
+        // 第七题 pwwkew   -1230
+        // 1.保留正负号，2、转成数组、3、去除尾部所有0 4、反转数组 、5判断是否越界并输出
+        var reverse = function (x) {
+            if (x == 0) {
+                return x
+            }
+            let type = 1
+            if (x < 0) {
+                type = -1
+            }
+
+            let arr = (x * type).toString().split('');
+            while (arr[arr.length] == 0 || arr[arr.length] == '0') {
+                arr.splice(arr.length - 1, 1)
+            }
+            const num = arr.reverse().join('') * type
+
+            if (num > (Math.pow(2, 31) - 1) || num < -(Math.pow(2, 31))) {
+                return 0
+            } else {
+                return num
+            }
+            // [−231, 231 − 1]
+
+        };
+    </script>
+</body>
+
+</html>

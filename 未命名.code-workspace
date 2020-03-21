@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "/Users/yons/data/code/v-datepicker"
+		},
+		{
+			"path": "/Users/yons/data/code/VUE-THS"
+		}
+	],
+	"settings": {
+		"workbench.colorCustomizations": {
+			"activityBar.background": "#21330C",
+			"titleBar.activeBackground": "#2E4711",
+			"titleBar.activeForeground": "#F7FCF2"
+		}
+	}
+}

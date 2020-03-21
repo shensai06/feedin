@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 字符任取一个位置左侧必 左括号>=右括号
+    // 这题太厉害了 本人折服
+    var generateParenthesis6 = function (n) {
+      let res = [];
+      //  cur :当前字符  left：当前字符左括号 right:当前字符右括号
+      const help = (cur, left, right) => {
+        if (cur.length === 2 * n) {
+          res.push(cur);
+          return;
+        }
+        if (left < n) {
+          help(cur + "(", left + 1, right)
+        }
+        if (right < left) {
+          help(cur + ")", left, right + 1);
+        }
+      };
+      help("", 0, 0);
+      return res;
+    };
+
+    /* 
+      目前看最简单的回溯算法
+  
+      */
+    /**
+   * @param {number} n
+   * @return {string[]}
+   */
+    var generateParenthesis4 = function (n) {
+      let res = [];
+      help(res, "", 0, 0, n);
+      return res;
+    };
+
+    function help(res, cur, open, close, n) {
+      if (cur.length === 2 * n) {
+        res.push(cur);
+        return;
+      }
+
+      if (open < n) {
+        help(res, cur + "(", open + 1, close, n)
+      }
+      if (close < open) {
+        // 为保证括号有效，闭合括号的出现次数必须比开始括号的次数少
+        help(res, cur + ")", open, close + 1, n);
+      }
+    }
+
+
+
+    // 1、二叉搜索树检查
+    var generateParenthesis = function (n) {
+      function addLeft(item) {
+        return {
+          left: item.left + 1,
+          right: item.right,
+          str: item.str + '('
+        }
+      }
+
+      function addRight(item) {
+        return {
+          left: item.left,
+          right: item.right + 1,
+          str: item.str + ')'
+        }
+      }
+
+      function paddingRight(item) {
+        while (item.right < item.left) {
+          item.right++;
+          item.str += ')';
+        }
+        return item.str;
+      }
+
+      if (n < 1) return [];
+      let arr = [{
+        left: 1,
+        right: 0,
+        str: '('
+      }];
+      let strArr = [];
+      let count = 1;
+      while (count < n * 2) {
+        let len = arr.length;
+        for (let i = 0; i < len; i++) {
+          const item = arr[i];
+          if (item.left === n) {
+            strArr.push(paddingRight(item));
+            continue;
+          }
+          if (item.left > item.right) {
+            arr.push(addLeft(item));
+            arr.push(addRight(item));
+          } else {
+            arr.push(addLeft(item));
+          }
+        }
+        arr.splice(0, len);
+        count++;
+      }
+      return strArr;
+    };
+    /* 
+    通过回溯算法 + 剪枝 + DFS 实现
+    */
+    var generateParenthesis2 = function (n) {
+      var list = []
+      if (n == 0) {
+        return
+      }
+      dfs('', n, n, list)
+
+      function dfs(str, left, right, list) {
+        if (left == 0 && right == 0) {
+          list.push(str)
+          return list
+        }
+        if (left > 0) {
+          dfs(str + '(', left - 1, right, list)
+        }
+
+        if (right > 0 && left < right) {
+          dfs(str + ')', left, right - 1, list)
+        }
+      }
+
+      return list
+    };
+
+    /* 
+    
+    如果将所有'('按序换为1，3，5…的奇数序列，将所有')'按序换为2，4，6…的偶数序列，得到的数字序列，存在这样的规律：以1起始，奇数大于左边的任意数，偶数大于左边的任意偶数。
+    所以在生成新序列时，以'('起始 ，下一个数必须小于等于2n；若是偶数，需要当前序列最大偶数小于最大奇数，然后加入')'，并让该序列的最大偶数+2；若是奇数，则加入'('。当序列长度为2n时退出。
+    代码如下，时间复杂度O(n*m)，m是最终生成的序列个数，应该和n有数学关系，但我不确定具体关系
+    */
+    var generateParenthesis3 = function (n) {
+      if (n === 0) return [];
+      if (n === 1) return ['()'];
+      let result = ['('], sequenceQuote = [[1, 0]];
+      let length = 1;
+      let limit = 2 * n;
+      while (length < limit) {
+        let tempResult = [], tempSequenceQuote = [];
+        for (let i = 0; result[i]; i++) {
+          for (let j = 0; j < 2; j++) {
+            let quotes = [...(sequenceQuote[i])];
+            if (quotes[j] + 2 > limit) {
+              continue;
+            }
+            if (j === 1 && quotes[j] > quotes[0]) {
+              break;
+            }
+            let newSequence = result[i] + (j === 0 ? '(' : ')');
+            tempResult.push(newSequence);
+            quotes[j] += 2;
+            tempSequenceQuote.push(quotes);
+          }
+        }
+        result = tempResult;
+        sequenceQuote = tempSequenceQuote;
+        length++;
+      }
+      return result;
+    };
+
+
+  </script>
+</body>
+
+</html>
